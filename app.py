@@ -25,7 +25,7 @@ st.set_page_config(
 # ---------------------------------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("../Data/ds_salaries.csv")
+    df = pd.read_csv("Data/ds_salaries.csv")
 
     # Focus on core roles
     core_roles = ["Data Scientist", "Data Engineer", "Data Analyst"]
@@ -282,3 +282,4 @@ with tab5:
     if st.button("Predict Salary"):
         prediction = rf_model.predict(input_data)[0]
         st.success(f"Estimated Salary: ${int(prediction):,}")
+
