@@ -197,6 +197,27 @@ with tab2:
 # TAB 3 - MARKET INSIGHTS
 # ---------------------------------------------------
 with tab3:
+    st.subheader("📊 Market Snapshot")
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric(
+        "Average Salary",
+        f"${int(df['salary_in_usd'].mean()):,}"
+    )
+
+    col2.metric(
+        "Highest Paying Role",
+        df.groupby("job_title")["salary_in_usd"].mean().idxmax()
+    )
+
+    col3.metric(
+        "Remote Roles %",
+        f"{int((df['remote_type']=='Remote').mean()*100)}%"
+    )
+
+    st.divider()
+
     st.subheader("Average Salary by Role")
     fig_role = px.bar(
         df.groupby("job_title")["salary_in_usd"].mean().reset_index(),
@@ -282,4 +303,5 @@ with tab5:
     if st.button("Predict Salary"):
         prediction = rf_model.predict(input_data)[0]
         st.success(f"Estimated Salary: ${int(prediction):,}")
+
 
